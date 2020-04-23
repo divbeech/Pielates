@@ -4,8 +4,8 @@ class CreateStudios < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :addresss
       t.integer :zipcode
-      t.string :longitude
-      t.string :latitude
+      t.float :longitude
+      t.float :latitude
       t.string :image
       t.string :url
 
