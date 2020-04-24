@@ -7,6 +7,11 @@ class MembershipsController < ApplicationController
 
     end
 
+    def create
+        @membership = Membership.find(params[:id])
+        render json: @membership
+    end
+
     def destroy
         Membership.find(params[:id]).destroy
         memberships = Membership.all
@@ -14,7 +19,7 @@ class MembershipsController < ApplicationController
     end
 
     def membership_params
-        params.require(:membership).permit(:user_id, :studio_id, :favorite)
+        params.permit(:user_id, :studio_id, :favorite)
       end
 
 
