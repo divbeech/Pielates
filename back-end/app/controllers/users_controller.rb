@@ -38,5 +38,5 @@ class UsersController < ApplicationController
         params.permit(:name, :age, :username, :password_digest)
       end
     
-    end
+
 end
