@@ -1,9 +1,15 @@
 class CreateStudios < ActiveRecord::Migration[6.0]
   def change
     create_table :studios do |t|
-      t.float :google_score
-      t.float :yelp_score
-      t.float :overall_score
+      t.string :name
+      t.string :image_url
+      t.string :address
+      t.float :longitude
+      t.float :latitude
+      t.float :rating
+      t.integer :reviews
+      t.string :price
+      t.string :url
       t.timestamps
     end
   end

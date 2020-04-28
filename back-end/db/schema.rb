@@ -10,26 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_195951) do
+ActiveRecord::Schema.define(version: 2020_04_28_195927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "favorites", force: :cascade do |t|
-    t.boolean "prefers_google"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_favorites_on_user_id"
-  end
-
   create_table "memberships", force: :cascade do |t|
-    t.string "name"
-    t.string "yelp_id"
-    t.string "image"
-    t.string "address"
-    t.string "url"
-    t.string "phone"
+    t.boolean "favorite"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -39,9 +26,15 @@ ActiveRecord::Schema.define(version: 2020_04_28_195951) do
   end
 
   create_table "studios", force: :cascade do |t|
-    t.float "google_score"
-    t.float "yelp_score"
-    t.float "overall_score"
+    t.string "name"
+    t.string "image_url"
+    t.string "address"
+    t.float "longitude"
+    t.float "latitude"
+    t.float "rating"
+    t.integer "reviews"
+    t.string "price"
+    t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -55,7 +48,6 @@ ActiveRecord::Schema.define(version: 2020_04_28_195951) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "favorites", "users"
   add_foreign_key "memberships", "studios"
   add_foreign_key "memberships", "users"
 end
