@@ -1,26 +1,36 @@
 class MembershipsController < ApplicationController
-    skip_before_action :verify_authenticity_token
-
-    def create
-        membership = Membership.create(user_id: params[:user_id], name: params[:name], yelp_id: params[:yelp_id], image: params[:image], address: params[:address], phone: params[:phone])
-
-       memberships = Membership.all
-
-        render json: memberships
-    end
 
     def index
-
-        memberships = Membership.all
-        render json: memberships
-
+      @memberships = Memberships.all
+      render json: @memberships
     end
-
+  
+    def show
+      @membership = Membership.find(params[:id])
+      render json: @membership
+    end
+  
+    def create
+      @membership = Membership.create(membership_params)
+      render json: @membership
+    end
+  
+    def update
+      @membership = Membership.find(params[:id])
+      @membership.update(membership_params)
+      render json: @membership
+    end
+  
     def destroy
-        Membership.find(params[:id]).destroy
-        memberships = Membership.all
-
-        render json: memberships
+      @membership = Membership.find(params[:id])
+      @membership.destroy
+      render json: @membership
     end
-
-end
+  
+    private
+  
+    def membership_params
+      params.require(:membership.permit(:studio_id, :user_id, :favorite)
+    end
+  
+  end
