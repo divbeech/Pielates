@@ -1,25 +1,28 @@
 class UsersController < ApplicationController
 
-  def index
-      users = User.all
-      user = users.find do |user|
-          user.username == params[:username]
+    def index
+      render json: User.all
+    end
+  
+    def show
+       @user = User.find(params[:id])
+      render json: @user
+    end
+  
+    def create
+      @user = User.new(user_params)
+      @user.save!
+      if @user
+        render json: @user
+      else
+        render json: { errors: @user.errors.full_messages }
       end
-      if !user
-          user = User.first
+    end
+  
+    private
+  
+    def user_params
+        params.require(:user).permit(:name, :username, :password_digest, :age)
+        
       end
-      user_memberships = user.memberships
-      render json: {users: users, user: user, memberships: user_memberships}
   end
-
-  def show
-      user = User.find_by(params[:id])
-      render json: user
-  end
-
-  def create
-      user = User.create(username: params[:username], age: params[:age], name: params[:name], password_digest: params[:password_digest])
-      render json: user
-  end
-
-end

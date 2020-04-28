@@ -5,8 +5,9 @@ class CreateMemberships < ActiveRecord::Migration[6.0]
       t.string :yelp_id
       t.string :image
       t.string :address
+      t.string :url
       t.string :phone
-
+      
       t.timestamps
     end
   end
