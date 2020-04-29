@@ -3,7 +3,6 @@ import './App.css';
 import Home from './components/Home'
 import About from './components/About'
 import Studios from './components/Studios'
-import MenuBar from './components/MenuBar'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
+      current_user: '',
       users: [],
       studios: [],
       memberships: []
@@ -53,24 +53,32 @@ class App extends Component {
       console.log(json)
     })
   }
+  checkUsername = (username) => {
+    let user = this.state.users.find((user) => username === user.username)
+    if (user) {
+      this.setState({
+        current_user: user
+      })
+      return true;
+    } else {
+      return false;
+    }
+  } 
   render() {
     return (
       <Router>
-      <div id="container">
-        <MenuBar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/studios">
-            <Studios />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+        <div id="container">
+          <Switch>
+            <Route exact path='/' render={props => (<Home {...props} checkUsername={this.checkUsername} />)}/>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/studios">
+              <Studios />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

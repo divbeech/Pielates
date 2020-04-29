@@ -51,15 +51,21 @@ a:hover {
    text-decoration: none;
 }
 #menubar {
-  padding: 20px 0px;
+  float: right;
 }
 #container {
   padding: 20px 10px;
 }
-.selected {
-  text-decoration: underline;
+#login-form {
+  text-align: center;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  -moz-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
 }
-.selected:hover {
-  color: #ff008c;
-  text-decoration: underline;
+input {
+  text-align: center;
 }
