@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import Home from './components/Home'
 import About from './components/About'
-import Studios from './components/Studios'
+import Profile from './components/Profile'
+import SearchResults from './components/SearchResults'
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,8 @@ class App extends Component {
       current_user: '',
       users: [],
       studios: [],
-      memberships: []
+      memberships: [],
+      search_results: []
     };
   }
   componentDidMount() {
@@ -30,7 +33,7 @@ class App extends Component {
       this.setState((prevState, props) => ({
         users: json
       }))
-      console.log(json)
+      // console.log(json)
     })
   }
   getStudios = () => {
@@ -40,7 +43,7 @@ class App extends Component {
       this.setState((prevState, props) => ({
         studios: json
       }))
-      console.log(json)
+      // console.log(json)
     })
   }
   getMemberships = () => {
@@ -50,7 +53,7 @@ class App extends Component {
       this.setState((prevState, props) => ({
         memberships: json
       }))
-      console.log(json)
+      // console.log(json)
     })
   }
   checkUsername = (username) => {
@@ -64,6 +67,13 @@ class App extends Component {
       return false;
     }
   } 
+
+  setSearchResult = (results) => {
+    this.setState({ 
+      search_results: results
+    }, () => console.log(this.state.search_results) )
+  }
+
   render() {
     return (
       <Router>
@@ -73,9 +83,16 @@ class App extends Component {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/studios">
-              <Studios />
+            <Route path="/profile" render={props => (
+              <Profile 
+                {...props}
+                {...this.state}
+                current_user={this.state.current_user} 
+                studios={this.state.studios} 
+                setSearchResult={this.setSearchResult}
+                />)}>
             </Route>
+            <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
           </Switch>
         </div>
       </Router>

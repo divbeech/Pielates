@@ -16,7 +16,7 @@ class Home extends Component {
     e.preventDefault();
     // console.log("user: " + this.state.username);
     if (this.props.checkUsername(this.state.username)) {
-        this.props.history.push('/Studios')
+        this.props.history.push('/Profile')
     } else {
       this.setState({ 
         errors: true,
