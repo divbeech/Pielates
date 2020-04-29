@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MenuBar from './MenuBar'
+import { Redirect } from 'react-router-dom'
 
 class Profile extends Component {
   constructor(props) {
@@ -13,29 +14,29 @@ class Profile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-  
-handleChange(event) {
-  this.setState({value: event.target.value});
-}
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
-handleSubmit(event) {
-  // alert('A name was submitted: ' + this.state.value);
-  event.preventDefault();
-  let results = this.props.studios.filter(studio=>studio.name === this.state.value)
-  // clearing input
-  this.setState({
-    value: ''
-    // search_results: results
-  });
-  this.props.setSearchResult(results) 
-  this.props.history.push('/SearchResults')
-}
+  handleSubmit(event) {
+    // alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+    let results = this.props.studios.filter(studio=>studio.name.includes(this.state.value))
+    // clearing input
+    this.setState({
+      value: ''
+      // search_results: results
+    });
+    this.props.setSearchResult(results) 
+    this.props.history.push('/SearchResults')
+  }
 
   render() {
-    // console.log("studios in profile: ", this.props.studios)
+    // console.log ("studios in profile: ", this.props)
+
     return (
       <div>
-        <MenuBar />
+        <MenuBar {...this.props} logout={this.props.logout} />
         <h1>Welcome { this.props.current_user.name }</h1>
         <form onSubmit={this.handleSubmit}>
           <label>

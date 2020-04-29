@@ -25,6 +25,12 @@ class App extends Component {
     this.getUsers();
     this.getStudios();
     this.getMemberships();
+    let user = JSON.parse(localStorage.getItem('user'))
+    if (user) {
+      this.setState({
+        current_user: user
+      })
+    }
   }
   getUsers = () => {
     fetch("http://localhost:3000/users")
@@ -36,6 +42,7 @@ class App extends Component {
       // console.log(json)
     })
   }
+
   getStudios = () => {
     fetch("http://localhost:3000/studios/")
     .then (resp => resp.json())
@@ -46,6 +53,7 @@ class App extends Component {
       // console.log(json)
     })
   }
+
   getMemberships = () => {
     fetch("http://localhost:3000/memberships/")
     .then (resp => resp.json())
@@ -56,17 +64,25 @@ class App extends Component {
       // console.log(json)
     })
   }
+  
   checkUsername = (username) => {
     let user = this.state.users.find((user) => username === user.username)
     if (user) {
       this.setState({
         current_user: user
-      })
+      }, () => localStorage.setItem('user', JSON.stringify(this.state.current_user)))
       return true;
     } else {
       return false;
     }
   } 
+
+  logout = () => {
+    localStorage.clear();
+    this.setState({
+      current_user: undefined
+    })
+  }
 
   setSearchResult = (results) => {
     this.setState({ 
@@ -87,6 +103,7 @@ class App extends Component {
               <Profile 
                 {...props}
                 {...this.state}
+                logout={this.logout}
                 current_user={this.state.current_user} 
                 studios={this.state.studios} 
                 setSearchResult={this.setSearchResult}
@@ -99,4 +116,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;
