@@ -5,7 +5,7 @@ const StudioListing = (props) => {
     <div className="polaroid">
       <img src={props.studio.image_url} />
       <div className="imagecontainer">
-       <p>{props.studio.name}</p><br />
+       <p>{props.studio.name}</p> <br />
         <p>{props.studio.address}</p> </div>
     </div>
   );

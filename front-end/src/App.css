@@ -1,3 +1,9 @@
+.body {
+  background: url("https://unsplash.com/photos/eofm5R5f9Kw")60% 30%;
+  justify-content: center;
+    display: center;
+}
+
 .App {
   text-align: center;
 }
