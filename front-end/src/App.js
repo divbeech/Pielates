@@ -9,6 +9,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import StudioShow from './components/StudioShow';
 
 class App extends Component {
   constructor(props) {
@@ -110,7 +111,9 @@ class App extends Component {
                 />)}>
             </Route>
             <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
+            <Route path="/studioshow" render={props =>(<StudioShow {...props} {...this.state} />)}/>
           </Switch>
+          
         </div>
       </Router>
     );
