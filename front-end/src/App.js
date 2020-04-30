@@ -31,12 +31,55 @@ class App extends Component {
     this.getStudios();
     this.getMemberships();
     let user = JSON.parse(localStorage.getItem('user'))
-    if (user) {
+    if (user) 
       this.setState({
         current_user: user
       })
     }
   }
+
+  handleMembership = (e) => {
+    let membershipObj = {
+      user_id: props.current_user.id,
+      studio_id: props.location.state.current_studio.id,
+      // favorite: 
+    }
+
+    fetch("http://localhost:3000/memberships", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(membershipObj)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+    // console.log(data)
+    // this.add({memberships: data}, ()=>{
+      // console.log(this.state.memberships)})
+     props.addMembership(data)
+    //  <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
+    props.history.push("/profile")
+  })
+} //end of handleBookmark
+
+handleRemoveMembership = (e) => {
+  console.log(e)
+  // fetch(`http://localhost:3000/memberships/${e.target.value.studio.id}`, {
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     method: "DELETE"
+  // })
+  // .then(resp => resp.json())
+  // .then(data => {
+  //   this.setState({memberships: data}, ()=>{
+  //     console.log("memberships after removal: ", this.state.memberships)})
+  // })
+ } //end of handleRemove
+
   getUsers = () => {
     fetch("http://localhost:3000/users")
     .then (resp => resp.json())
