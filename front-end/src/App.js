@@ -96,10 +96,13 @@ class App extends Component {
   }
 
   addMembership =(data) => {
+    console.log("data in addMembership: ", data);
+    console.log("this.state.current_user.studios: ", this.state.current_user.studios)
+    console.log("this.state.memberships: ", this.state.memberships)
     this.setState({
       memberships: [...this.state.memberships, data]
+      // current_user[studios]: [...this.state.current_user.studios, this.state.memberships[data.studio_id]]
     })
-
   }
 
   render() {
@@ -124,6 +127,7 @@ class App extends Component {
             <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
             <Route path="/studioshow" render={props =>(<StudioShow {...props} {...this.state} addMembership = {this.addMembership} />)}/>
           </Switch>
+
           
         </div>
       </Router>

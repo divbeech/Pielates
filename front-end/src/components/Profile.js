@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MenuBar from './MenuBar'
 import { Redirect } from 'react-router-dom'
+import StudioListing from './StudioListing';
 
 class Profile extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ console.log(this.props)
         <br/>
         <hr/>
         <br/>
-        { this.props.memberships && this.props.memberships.map((membership) => <div> {membership.studio_id} </div>  )}
+        { this.props.current_user.studios && this.props.current_user.studios.map((studio) => <div> <StudioListing studio= {studio}/> </div>  )}
         </div>
     );
   }
