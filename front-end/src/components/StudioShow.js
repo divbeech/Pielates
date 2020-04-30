@@ -20,7 +20,7 @@ const StudioShow = (props) => {
     console.log(data)
     // this.add({memberships: data}, ()=>{
       // console.log(this.state.memberships)})
-     props.addMembership(data)
+    props.addMembership(data)
     //  <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
     props.history.push("/profile")
   })
@@ -43,8 +43,8 @@ function handleRemove (e) {
     return (
         <div className="polaroid">
           {console.log(props)}
-          <h1>{props.location.state.current_studio.name}<br/>
-            <p>{props.location.state.current_studio.address}<br/>
+          <h1>{props.location.state.current_studio.name}
+            <p>{props.location.state.current_studio.address}
             {props.location.state.current_studio.price}<br/>
             {props.location.state.current_studio.rating} </p> 
             {props.location.state.current_studio.reviews}</h1>

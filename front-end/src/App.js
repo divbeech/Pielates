@@ -16,7 +16,7 @@ class App extends Component {
     super(props);
     this.state = { 
       current_user: '',
-      users: [],
+      user_studios: [],
       studios: [],
       memberships: [],
       search_results: []
@@ -29,11 +29,14 @@ class App extends Component {
   componentDidMount() {
     this.getUsers();
     this.getStudios();
-    this.getMemberships();
+    // this.getMemberships();
+    // console(current_user)
     let user = JSON.parse(localStorage.getItem('user'))
     if (user) 
       this.setState({
-        current_user: user
+        current_user: user,
+        user_studios: user.studios,
+        memberships: user.memberships
       })
     }
 
@@ -59,16 +62,16 @@ class App extends Component {
     })
   }
 
-  getMemberships = () => {
-    fetch("http://localhost:3000/memberships/")
-    .then (resp => resp.json())
-    .then (json => {
-      this.setState((prevState, props) => ({
-        memberships: json
-      }))
-      // console.log(json)
-    })
-  }
+  // getMemberships = () => {
+  //   fetch("http://localhost:3000/memberships/")
+  //   .then (resp => resp.json())
+  //   .then (json => {
+  //     this.setState((prevState, props) => ({
+  //       memberships: json
+  //     }))
+  //     // console.log(json)
+  //   })
+  // }
   
   checkUsername = (username) => {
     let user = this.state.users.find((user) => username === user.username)
@@ -96,12 +99,12 @@ class App extends Component {
   }
 
   addMembership =(data) => {
-    console.log("data in addMembership: ", data);
-    console.log("this.state.current_user.studios: ", this.state.current_user.studios)
-    console.log("this.state.memberships: ", this.state.memberships)
+    // console.log("data in addMembership: ", data);
+    // console.log("this.state.current_user.studios: ", this.state.current_user.studios)
+    // console.log("this.state.memberships: ", this.state.memberships)
     this.setState({
-      memberships: [...this.state.memberships, data]
-      // current_user[studios]: [...this.state.current_user.studios, this.state.memberships[data.studio_id]]
+      memberships: [...this.state.memberships, data],
+      user_studios: [...this.state.current_user.studios, this.state.memberships[data.studio_id]]
     })
   }
 
