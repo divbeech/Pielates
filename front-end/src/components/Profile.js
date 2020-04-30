@@ -33,7 +33,7 @@ class Profile extends Component {
 
   render() {
     // console.log ("studios in profile: ", this.props)
-
+console.log(this.props)
     return (
       <div>
         <MenuBar {...this.props} logout={this.props.logout} />
@@ -47,8 +47,8 @@ class Profile extends Component {
         <br/>
         <hr/>
         <br/>
-        {/* { this.state.favorites ? favorites.map((fav) => <Studio store=fav /> )} */}
-      </div>
+        { this.props.memberships && this.props.memberships.map((membership) => <div> {membership.studio_id} </div>  )}
+        </div>
     );
   }
 }

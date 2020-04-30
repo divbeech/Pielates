@@ -22,6 +22,10 @@ class App extends Component {
       search_results: []
     };
   }
+
+  // let thisUsersMemberships = memberships.filter(m => m.user_id === current_user.user_id)
+  // thisUsersMemberships.map(membership => membership.studio_id)
+
   componentDidMount() {
     this.getUsers();
     this.getStudios();
@@ -91,6 +95,14 @@ class App extends Component {
     }, () => console.log(this.state.search_results) )
   }
 
+  addMembership =(data) => {
+    this.setState({
+      memberships: [...this.state.memberships, data]
+    })
+
+  }
+
+
   render() {
     return (
       <Router>
@@ -111,7 +123,7 @@ class App extends Component {
                 />)}>
             </Route>
             <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
-            <Route path="/studioshow" render={props =>(<StudioShow {...props} {...this.state} />)}/>
+            <Route path="/studioshow" render={props =>(<StudioShow {...props} {...this.state} addMembership = {this.addMembership} />)}/>
           </Switch>
           
         </div>
@@ -121,3 +133,4 @@ class App extends Component {
 }
 
 export default App;
+

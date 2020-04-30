@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
     private
   
     def membership_params
-      params.require(:membership.permit(:studio_id, :user_id, :favorite))
+      params.permit(:studio_id, :user_id, :favorite)
     end
   
   end
