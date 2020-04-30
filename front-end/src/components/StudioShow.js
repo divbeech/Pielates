@@ -4,10 +4,10 @@ const StudioShow = (props) => {
     return (
         <div className="polaroid">
           {console.log(props)}
-          {/* <h1>{props.studio.name}
-            {props.studio.address}
-            {props.studio.price}
-            {props.studio.rating}  </h1>
+          {/* <h1>{props.studio.name}<br>
+            <p></p>{props.studio.address}<br>
+            {props.studio.price}<br>
+            {props.studio.rating} </p> </h1>
        
           <img src={this.props.studio.image_url} />
           <div className="imagecontainer">
