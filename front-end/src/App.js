@@ -12,7 +12,6 @@ import {
 import StudioShow from './components/StudioShow';
 import MenuBar from './components/MenuBar'
 import { Redirect } from 'react-router-dom'
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,17 +24,14 @@ class App extends Component {
       redirect: false
     };
   }
-
   // let thisUsersMemberships = memberships.filter(m => m.user_id === current_user.user_id)
   // thisUsersMemberships.map(membership => membership.studio_id)
-
   componentDidMount() {
     this.getUsers();
     this.getStudios();
     // this.getMemberships();
     let user = this.getUser();
     console.log(user)
-
     if (user) {
       this.setState({
         current_user: user,
@@ -44,19 +40,16 @@ class App extends Component {
       }, ()=> this.setRedirect())
     }
   }
-
   setRedirect = () => {
     this.setState({
       redirect: true
     })
   }
-  
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to='/Profile' />
     }
   }
-
   getUsers = () => {
     fetch("http://localhost:3000/users")
     .then (resp => resp.json())
@@ -67,7 +60,6 @@ class App extends Component {
       // console.log(json)
     })
   }
-
   getStudios = () => {
     fetch("http://localhost:3000/studios/")
     .then (resp => resp.json())
@@ -78,7 +70,6 @@ class App extends Component {
       // console.log(json)
     })
   }
-
   // getMemberships = () => {
   //   fetch("http://localhost:3000/memberships/")
   //   .then (resp => resp.json())
@@ -89,7 +80,6 @@ class App extends Component {
   //     // console.log(json)
   //   })
   // }
-  
   checkUsername = (username) => {
     let user = this.state.users.find((user) => username === user.username)
     if (user) {
@@ -103,7 +93,6 @@ class App extends Component {
       return false;
     }
   } 
-
   saveUser = (user) => {
     if (user) {
       localStorage.removeItem('user');
@@ -112,34 +101,25 @@ class App extends Component {
       return false;
     }
   }
-
   getUser = () => {
     let user = JSON.parse(localStorage.getItem('user'));
-    this.getStudios();
     if (user) { 
       return user;
     } else {
       return false;
     }
   }
-
   logout = () => {
     localStorage.clear();
     this.setState({
       current_user: undefined,
-      user_studios: [],
-      studios: [],
-      memberships: [],
-      search_results: []
     })
   }
-
   setSearchResult = (results) => {
     this.setState({ 
       search_results: results
     }, () => console.log("search results", this.state.search_results))
   }
-
   addMembership =(data) => {
     // console.log("data in addMembership: ", data);
     // console.log("this.state.current_user.studios: ", this.state.current_user.studios)
@@ -147,14 +127,11 @@ class App extends Component {
     // console.log("this.state.memberships: ", this.state.memberships)
     // console.log("this.state.memberships[data.studio_id", this.state.studios[data.studio_id])
     // console.log("new_studio", new_studio);
-
     let new_studio = this.state.studios.find(studio => studio.id === data.studio_id);
-
     this.setState({
       memberships: [...this.state.memberships, data],
       user_studios: [...this.state.user_studios, new_studio]
     });
-
     let user = this.getUser()
     if (user) {
       user.memberships = [...this.state.memberships, data];
@@ -162,19 +139,16 @@ class App extends Component {
       this.saveUser();
     }
   }
-
   removeStudio =(data) => {
     // console.log("removeStudio - App:", data)
     let newMemberships = this.state.memberships.filter(membership => membership.studio_id !== data.id)
     let newUserStudios = this.state.user_studios.filter(user_studio => user_studio.id !== data.id)
 console.log("remove Studio: newmemberships ", newMemberships)
 console.log("remove Studio: newuserstudios", newUserStudios)
-
     this.setState({
       memberships: newMemberships,
       user_studios: newUserStudios
     });
-
     let user = this.getUser()
     if (user) {
       user.memberships = newMemberships;
@@ -183,32 +157,26 @@ console.log("remove Studio: newuserstudios", newUserStudios)
       this.saveUser();
       console.log("remove user", user)
     }
-
   }
-
   addFavorite =(data) => {
     // add favorite to state
     // add favorite to localStorage
     // 
   }
-
   removeFavorite =(data) => {
     // remove favorite to state
     // remove favorite to localStorage
     // 
   }
-
   isFavorite = (data) => {
     // data should be a studio object
     let mb = this.state.memberships.find(membership => membership.studio_id === data.id);
-
     if (mb.favorite === true) {
       return true
     } else {
       return false
     }
   }
-
   render() {
     return (
       <Router>
@@ -247,6 +215,4 @@ console.log("remove Studio: newuserstudios", newUserStudios)
     );
   }
 }
-
 export default App;
-

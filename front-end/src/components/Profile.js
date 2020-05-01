@@ -47,7 +47,6 @@ class Profile extends Component {
           <input type="submit" value="Submit" />
         </form>
         <br/>
-        <hr/>
         <h4>You currently have memberships at:</h4>
         { this.props.user_studios && this.props.user_studios.map((studio) => <div key={studio.id} > <ProfileStudioListing studio={studio} {...this.props}/> </div>  )}
         </div>
