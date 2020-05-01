@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MenuBar from './MenuBar'
-import { Redirect } from 'react-router-dom'
-import StudioListing from './StudioListing';
+
+// import { Redirect } from 'react-router-dom'
+import ProfileStudioListing from './ProfileStudioListing';
 
 class Profile extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class Profile extends Component {
     // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
     let results = this.props.studios.filter(studio=>studio.name.includes(this.state.value))
+    // console.log(results)
     // clearing input
     this.setState({
       value: ''
@@ -34,21 +35,21 @@ class Profile extends Component {
 
   render() {
     // console.log ("studios in profile: ", this.props)
-console.log(this.props)
+    // console.log("profile", this.props)
     return (
       <div>
-        <MenuBar {...this.props} logout={this.props.logout} />
         <h1>Welcome { this.props.current_user.name }</h1>
+        <br></br>
+        <br></br>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
+          <label>Search for studios: </label>
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
           <input type="submit" value="Submit" />
         </form>
         <br/>
         <hr/>
-        <br/>
-        { this.props.current_user.studios && this.props.current_user.studios.map((studio) => <div> <StudioListing studio= {studio}/> </div>  )}
+        <h4>You currently have memberships at:</h4>
+        { this.props.user_studios && this.props.user_studios.map((studio) => <div key={studio.id} > <ProfileStudioListing studio={studio} {...this.props}/> </div>  )}
         </div>
     );
   }

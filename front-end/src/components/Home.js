@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 // import { Redirect } from "react-router-dom";
+
 class Home extends Component {
   constructor(props) {
     super(props);

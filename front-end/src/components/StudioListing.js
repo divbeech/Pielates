@@ -30,13 +30,15 @@ class StudioListing extends Component {
 
   render() {
     return (
-      <div onClick={this.onClickHandler} className="polaroid">
-        {this.renderRedirect()}
-        <img src={this.props.studio.image_url} />
-        <div className="imagecontainer">
-        <p>{this.props.studio.name}</p> <br />
-        <p>{this.props.studio.address}</p> </div>
-      </div>
+        <div onClick={this.onClickHandler} className="polaroid">
+            {this.renderRedirect()}
+            <p>{this.props.studio.name}</p> <br />
+            <img alt={this.props.studio.name} src={this.props.studio.image_url} />
+            <div className="imagecontainer">
+            <p>{this.props.studio.address}</p> </div>
+            <br></br>
+            <br></br>
+        </div>
     );
   }
 }

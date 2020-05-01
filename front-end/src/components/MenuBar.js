@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { withRouter} from 'react-router-dom';
 
 function MenuBar (props) {
   function onClickHandler(e) {
@@ -11,8 +12,8 @@ function MenuBar (props) {
 
   return (
     <div id="menubar">
-      <Button onClick={onClickHandler} variant="primary">Logout</Button>
+      <Button id="logout-button" variant="secondary" size="sm" onClick={onClickHandler}>Logout</Button>
     </div>
   )
 }
-export default MenuBar
+export default withRouter(MenuBar)
