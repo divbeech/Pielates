@@ -1,14 +1,10 @@
 import React from 'react';
-
 const StudioShow = (props) => {
-
     // console.log(props);
-
     function handleMembership (e) {
         let membershipObj = {
             user_id: props.current_user.id,
             studio_id: props.location.state.current_studio.id,
-            // favorite: 
         }
         fetch("http://localhost:3000/memberships", {
             headers: {
@@ -20,21 +16,15 @@ const StudioShow = (props) => {
         })
         .then(resp => resp.json())
         .then(data => {
-            // console.log(data)
-            // this.add({memberships: data}, ()=>{
-            // console.log(this.state.memberships)})
-            //  <Route path="/searchresults" render={props =>(<SearchResults {...props} {...this.state} />)}/>
             props.addMembership(data)
             props.history.push("/profile")
             })
     } //end of handleMembership
-
     return (
         <div className="polaroid-large">
             <div className="imagecontainer">
                 <img alt={props.location.state.current_studio.name} src={props.location.state.current_studio.image_url} />
             </div>
-
             <h1>{props.location.state.current_studio.name}</h1>
             <h5>{props.location.state.current_studio.address}</h5>
             Monthly Cost: {props.location.state.current_studio.price}<br/>
@@ -47,4 +37,3 @@ const StudioShow = (props) => {
     );
 }
 export default StudioShow;
-

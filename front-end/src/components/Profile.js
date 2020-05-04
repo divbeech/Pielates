@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 // import { Redirect } from 'react-router-dom'
 import ProfileStudioListing from './ProfileStudioListing';
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -10,19 +8,20 @@ class Profile extends Component {
       value: ''
       // search_results: []
     };
-  
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
   handleChange(event) {
     this.setState({value: event.target.value});
   }
-
   handleSubmit(event) {
     // alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
-    let results = this.props.studios.filter(studio=>studio.name.includes(this.state.value))
+    let search = this.state.value.toLowerCase();
+    let results = this.props.studios.filter(studio => {
+      let studioName = studio.name.toLowerCase();
+      return studioName.includes(search);
+    })
     // console.log(results)
     // clearing input
     this.setState({
@@ -32,7 +31,6 @@ class Profile extends Component {
     this.props.setSearchResult(results) 
     this.props.history.push('/SearchResults')
   }
-
   render() {
     // console.log ("studios in profile: ", this.props)
     // console.log("profile", this.props)
@@ -53,6 +51,4 @@ class Profile extends Component {
     );
   }
 }
-
-
 export default Profile;

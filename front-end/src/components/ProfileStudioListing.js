@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
-
 class ProfileStudioListing extends Component {
-
   handleRemove = (e) => {
-
     let membershipToRemove = this.props.memberships.find(membership => membership.studio_id === this.props.studio.id)
-
-    console.log(membershipToRemove.id);
-
     fetch(`http://localhost:3000/memberships/${membershipToRemove.id}`, {
         headers: {
             'Accept': 'application/json',
@@ -17,18 +11,11 @@ class ProfileStudioListing extends Component {
     })
     .then(resp => resp.json())
     .then(data => {
-      // console.log("ProfileStudioListings  delete:", data)
       this.props.removeStudio(this.props.studio)
     })
   } //end of handleRemove
-
-
-
-
   handleFavorite = () => {
-
     let membershipToFavorite = this.props.memberships.find(membership => membership.studio_id === this.props.studio.id)
-
     fetch(`http://localhost:3000/memberships/${membershipToFavorite.id}`, {
         headers: {
             'Accept': 'application/json',
@@ -42,14 +29,11 @@ class ProfileStudioListing extends Component {
     .then(resp => resp.json())
     .then(data => {
       console.log("ProfileStudioListings  patch:", data)
+      this.props.getUsers();
     })
   } //end of handleFavorite
-
-
   handleUnfavorite = () => {
-
     let membershipToFavorite = this.props.memberships.find(membership => membership.studio_id === this.props.studio.id)
-
     fetch(`http://localhost:3000/memberships/${membershipToFavorite.id}`, {
         headers: {
             'Accept': 'application/json',
@@ -63,17 +47,15 @@ class ProfileStudioListing extends Component {
     .then(resp => resp.json())
     .then(data => {
       console.log("ProfileStudioListings  patch:", data)
+      this.props.getUsers();
     })
   } //end of handleUnFavorite
-
-
-
   render() {
     return (
         <div className="polaroid">
             <div className="imagecontainer">
               {console.log("profilestudiolisting: ", this.props)}
-              <h3>{this.props.studio.name} {this.props.isFavorite(this.props.studio) ? "*Fav*" : ""}</h3> 
+              <h3>{this.props.isFavorite(this.props.studio) ? "❤️" : ""} {this.props.studio.name} {this.props.isFavorite(this.props.studio) ? "❤️" : ""}</h3> 
               <img alt={this.props.studio.name} src={this.props.studio.image_url} />
               <p>{this.props.studio.address}</p> 
             <button onClick={this.handleRemove}>Cancel Membership</button>
@@ -85,5 +67,4 @@ class ProfileStudioListing extends Component {
     );
   }
 }
-
 export default ProfileStudioListing;
